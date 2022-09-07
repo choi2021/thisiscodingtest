@@ -1,12 +1,13 @@
-from posixpath import split
+N,K=list(map(int,input().split(" ")))
 
-
-N,K=map(int,input().split())
 A=list(map(int,input().split()))
 B=list(map(int,input().split()))
 
 A.sort()
 B.sort(reverse=True)
+
+print(A)
+print(B)
 
 for i in range(K):
   if A[i]<B[i]:
@@ -15,4 +16,3 @@ for i in range(K):
     break
 
 print(sum(A))
-  
