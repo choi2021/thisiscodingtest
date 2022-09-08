@@ -21,27 +21,26 @@
 
 # print(binary_search(height_arr,0,max_height-1))
 
-
-
-# 답안 풀이
-
-n,m=list(map(int,input().split(" ")))
-array=list(map(int,input().split()))
+import sys
+N,M=list(map(int,input().split()))
+data=list(map(int,sys.stdin.readline().rstrip().split()))
 
 start=0
-end=max(array)
+end=max(data)
 
-result=0
-while(start<=end):
-  total=0
-  mid=(start+end)//2
-  for x in array:
-    if x>mid:
-      total+=x-mid
-  if total<m:
-    end=mid-1
-  else:
-    result=mid
-    start=mid+1
 
-print(result)
+def binary_search(start,end):
+  while (start<=end):
+    mid=(start+end)//2
+    total=0
+    for i in data:
+      if i-mid>0:
+        total+=i-mid
+    if total==M:
+      return mid;
+    elif total<M:
+      end=mid-1
+    else:
+      start=mid+1
+    
+print(binary_search(start,end))
