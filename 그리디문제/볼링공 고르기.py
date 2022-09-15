@@ -26,7 +26,6 @@ result=0
 
 for i in range(1,M+1):
   N-=array[i]
-  print(N)
   result+=array[i]*N
 
 print(result)
