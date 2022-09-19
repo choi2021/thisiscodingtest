@@ -36,7 +36,8 @@
 # print(result[-1])
 # print(result[0])
 
-#책풀이:dfs를 이용하는데 전체 경우를 찾을수 있다는게 신기..
+#책풀이:dfs를 이용하는데 전체 경우를 찾을수 있다는게 신기.. 
+# if로 하나의 경우에 4가지 연산을 모두 체크할 수 있게 DFS 활용가능
 
 n=int(input())
 data=list(map(int,input().split()))
