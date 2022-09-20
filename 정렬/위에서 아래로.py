@@ -1,9 +1,8 @@
 N=int(input())
-data=[]
-for _ in range(N):
-  data.append(int(input()))
+result=[]
+for i in range(N):
+  result.append(int(input()))
 
-data=sorted(data,reverse=True)
-
-for j in data:
-  print(j, end=" ")
+result.sort(reverse=True)
+for i in range(N):
+  print(result[i],end=" ")
