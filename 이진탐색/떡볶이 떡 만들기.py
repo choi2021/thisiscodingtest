@@ -1,46 +1,31 @@
-
-# N,M=list(map(int,input().split()))
-# items=list(map(int,input().split()))
-
-# max_height=max(items)
-# height_arr=[x for x in range(0,max_height)]
-
-# def binary_search(array,start,end):
-#   mid=(start+end)//2
-#   sum=0
-#   for i in items:
-#     diff=i-array[mid]
-#     if diff>=0:
-#       sum+=diff
-#   if sum==M:
-#     return array[mid]
-#   elif sum>M:
-#     return binary_search(array,mid+1,end)
-#   else:
-#     return binary_search(array,start,mid-1)
-
-# print(binary_search(height_arr,0,max_height-1))
-
-import sys
-N,M=list(map(int,input().split()))
-data=list(map(int,sys.stdin.readline().rstrip().split()))
-
-start=0
-end=max(data)
+#1.N과 M의 크기가 엄청커=> 이진탐색을 이용하자
+#2. H가 될수 있는 건 0부터 떡의 최대길이까지
+#3. H가 작을수록 떡양은 많아지고, H가 길수록, 떡양이 작아져
+N,M=map(int,input().split())
+data=list(map(int,input().split()))
 
 
-def binary_search(start,end):
-  while (start<=end):
-    mid=(start+end)//2
-    total=0
-    for i in data:
-      if i-mid>0:
-        total+=i-mid
-    if total==M:
-      return mid;
-    elif total<M:
-      end=mid-1
-    else:
-      start=mid+1
-    
-print(binary_search(start,end))
+
+
+def cut_rice_cake(target,start,end):
+  if start>end:
+    return None
+  mid=(start+end)//2
+  total=0
+  for i in data:
+    cutted=i-mid
+    if cutted<=0:
+      continue
+    total+=cutted
+  if total==target:
+    return mid
+  elif total>target:
+    return cut_rice_cake(target,mid+1,end)
+  else:
+    return cut_rice_cake(target,start,mid-1)
+
+result=cut_rice_cake(M,0,max(data))
+if result==None:
+  print(-1)
+else:
+  print(result)

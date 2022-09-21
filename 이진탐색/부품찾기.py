@@ -1,12 +1,10 @@
-import sys
-
-#풀이 1: 이진탐색
-
-# N=int(input())
-# items=list(map(int,sys.stdin.readline().rstrip().split()))
-
-# M=int(input())
-# orders=list(map(int,sys.stdin.readline().rstrip().split()))
+# N이 100만개이므로 이미 이진탐색을 이용해보자
+# Orders를 target으로 삼는 이진탐색으로 결과를 리턴하기
+# n=int(input())
+# data=list(map(int,input().split()))
+# data.sort()
+# m=int(input())
+# orders=list(map(int,input().split()))
 
 # def binary_search(array,target,start,end):
 #   if start>end:
@@ -14,46 +12,32 @@ import sys
 #   mid=(start+end)//2
 #   if array[mid]==target:
 #     return "yes"
-#   if array[mid]>target:
+#   elif array[mid]>target:
 #     return binary_search(array,target,start,mid-1)
-#   elif array[mid]<target:
+#   else:
 #     return binary_search(array,target,mid+1,end)
 
-# def binary_search(array,target,start,end):
-#   while start<=end:
-#     mid=(start+end)//2
-#     if array[mid]==target:
-#       return "yes"
-#     elif array[mid]>target:
-#       end=mid-1
-#     else:
-#       start=mid+1
-#   return "no"
-
-# items.sort()
-
 # for order in orders:
-#   result=binary_search(items,order,0,N-1);
-#   print(result,end=" ")
+#   print(binary_search(data,order,0,n-1))
 
-# 풀이 2: 계수정렬
+
+# 책풀이 2. 계수 정렬
 # n=int(input())
-# array=[0]*1000001
+# array=[0]*(1000001)
 
-# for i in list(map(int,sys.stdin.readline().rstrip().split())):
-#   array[i]+=1
+# for i in input().split():
+#   array[int(i)]=1
 
 # m=int(input())
 # x=list(map(int,input().split()))
 
 # for i in x:
-#   if array[i]!=0:
-#     print("yes",end=" ")
+#   if array[i]==1:
+#     print("yes")
 #   else:
-#     print("no", end=" ")
+#     print("no")
 
-# 풀이 3: 집합이용
-
+# 책풀이 3.set
 n=int(input())
 array=set(map(int,input().split()))
 
@@ -62,6 +46,6 @@ x=list(map(int,input().split()))
 
 for i in x:
   if i in array:
-    print("yes",end=" ")
+    print("yes")
   else:
-    print("no",end=" ")
+    print("no")
