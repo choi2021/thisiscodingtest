@@ -7,25 +7,42 @@ data=list(map(int,input().split()))
 
 
 
-def cut_rice_cake(target,start,end):
-  if start>end:
-    return None
-  mid=(start+end)//2
-  total=0
-  for i in data:
-    cutted=i-mid
-    if cutted<=0:
-      continue
-    total+=cutted
-  if total==target:
-    return mid
-  elif total>target:
-    return cut_rice_cake(target,mid+1,end)
-  else:
-    return cut_rice_cake(target,start,mid-1)
+# def cut_rice_cake(target,start,end):
+#   if start>end:
+#     return None
+#   mid=(start+end)//2
+#   total=0
+#   for i in data:
+#     cutted=i-mid
+#     if cutted<=0:
+#       continue
+#     total+=cutted
+#   if total==target:
+#     return mid
+#   elif total>target:
+#     return cut_rice_cake(target,mid+1,end)
+#   else:
+#     return cut_rice_cake(target,start,mid-1)
 
-result=cut_rice_cake(M,0,max(data))
-if result==None:
-  print(-1)
-else:
-  print(result)
+# result=cut_rice_cake(M,0,max(data))
+# if result==None:
+#   print(-1)
+# else:
+#   print(result)
+
+
+start=0
+end=max(data)
+result=0
+while(start<=end):
+  total=0
+  mid=(start+end)//2
+  for x in data:
+    if x>mid:
+      total+=x-mid
+  if total<M:
+    end=mid-1
+  else:
+    result=mid
+    start=mid+1
+
