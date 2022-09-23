@@ -1,26 +1,42 @@
 # 내풀이
-# 1. 타겟 금액을 만들기 위해서 최소 값들을 만들어가
-# 2. 못만드는 금액은 -1으로, 타겟 최소개수=타겟금액에서 화폐금액을 뺀 금액의 최소갯수+1
+# 1. i번째 값은 i-k(화폐 단위)한 값+1로 나타낼 수 있어
+
+# n,m=map(int,input().split())
+# coins=[]
+# d=[10001]*(m+1)
+# for i in range(n):
+#   coins.append(int(input()))
+
+# d[0]=0
+
+# for i in range(min(coins),m+1):
+#   for coin in coins:
+#     d[i]=min(d[i-coin]+1,d[i])
+#   print(d[i],i)
+
+# if d[m]==10001:
+#   print(-1)
+# else:
+#   print(d[i])
+
+#책풀이
+#생각은 동일했지만 구현이 아직 내가 부족해
+#똑같이 i번째 값은 i-k(화폐 단위)한 값+1로 나타낼 수 있어
 
 n,m=map(int,input().split())
-coins=[]
-for _ in range(n):
-  coins.append(int(input()))
+array=[]
+for i in range(n):
+  array.append(int(input()))
 
-money=[-1]*(100)
-for coin in coins:
-  money[coin]=1
+d=[10001]*(m+1)
 
-for i in range(min(coins),m+1):
-  for coin in coins:
-    if i-coin<0:
-      continue
-    elif i-coin==0:
-      money[i]=1
-    else:
-      money[i]=money[i-coin]+1
+d[0]=0
+for i in range(n):
+  for j in range(array[i],m+1):
+    if d[j-array[i]]!=10001:
+      d[j]=min(d[j],d[j-array[i]]+1)
 
-
-
-
-print(money[m])
+if d[m]==10001:
+  print(-1)
+else:
+  print(d[m])
