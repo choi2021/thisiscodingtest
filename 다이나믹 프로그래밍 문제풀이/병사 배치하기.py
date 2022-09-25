@@ -45,7 +45,9 @@
 
 
 # 책풀이: LIS로 알려진 전형적인 다이나믹 프로그래밍 문제
-#
+# LIS는 가장 긴 오름차순 부분수열
+# 0<=j<i 에 대해 D[i]=max(D[i],D[j]+1) if array[j]<array[i]
+# D[j]=array[j]를 마지막으로 가지는 값이야
 
 n=int(input())
 array=list(map(int,input().split()))
