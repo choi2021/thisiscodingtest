@@ -1,37 +1,85 @@
-import heapq
+# import heapq
 
+# INF=int(1e9)
+# n,m=map(int,input().split())
+# graph=[[] for i in range(n+1)]
+# distance=[INF]*(n+1)
+
+
+# for i in range(m):
+#   a,b=map(int,input().split())
+#   graph[a].append(b)
+#   graph[b].append(a)
+
+# def dijstra(start):
+#   distance[start]=0
+#   q=[]
+#   heapq.heappush(q,(0,start))
+#   while q:
+#     dist,now=heapq.heappop(q)
+#     if distance[now]<dist:
+#       continue
+#     for node in graph[now]:
+#       cost=1+dist
+#       if cost<distance[node]:
+#         distance[node]=cost
+#         heapq.heappush(q,(cost,node))
+
+# dijstra(1)
+# max_distance=0
+# for i in distance:
+#   if i==INF:
+#     continue
+#   else:
+#     if i>max_distance:
+#       max_distance=i 
+
+# print(distance.index(max_distance),max_distance,distance.count(max_distance))
+
+
+#책풀이
+
+import heapq
+import sys
+input=sys.stdin.readline
 INF=int(1e9)
+
 n,m=map(int,input().split())
-graph=[[] for i in range(n+1)]
+start=1
+graph=[[]for i in range(n+1)]
 distance=[INF]*(n+1)
 
-
-for i in range(m):
+for _ in range(m):
   a,b=map(int,input().split())
-  graph[a].append(b)
-  graph[b].append(a)
+  graph[a].append((b,1))
+  graph[b].append((a,1))
 
-def dijstra(start):
-  distance[start]=0
+def dikstra(start):
   q=[]
   heapq.heappush(q,(0,start))
+  distance[start]=0
   while q:
     dist,now=heapq.heappop(q)
     if distance[now]<dist:
       continue
-    for node in graph[now]:
-      cost=1+dist
-      if cost<distance[node]:
-        distance[node]=cost
-        heapq.heappush(q,(cost,node))
+    for i in graph[now]:
+      cost=dist+i[1]
+      if cost<distance[i[0]]:
+        distance[i[0]]=cost
+        heapq.heappush(q,(cost,i[0]))
 
-dijstra(1)
+dikstra(start)
+
+max_node=0
 max_distance=0
-for i in distance:
-  if i==INF:
-    continue
-  else:
-    if i>max_distance:
-      max_distance=i 
+result=[]
 
-print(distance.index(max_distance),max_distance,distance.count(max_distance))
+for i in range(1,n+1):
+  if max_distance<distance[i]:
+    max_node=i
+    max_distance=distance[i]
+    result=[max_node]
+  elif max_distance==distance[i]:
+    result.append(i)
+
+print(max_node,max_distance,len(result))
