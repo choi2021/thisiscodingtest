@@ -1,46 +1,70 @@
-#내풀이는 정확성, 효율성에서 모두 실패..
-# 그이유로 빈 음식이 있으면 계속해서 array를 돌아줘야해
+# food items를 돌면서 줄여나가 그냥 roop를 돌면 시간초과
+# food times를 다합친거보다 k가 크면 무조건 -1
+# 작은 거부터 제거하면서 줄여나가는게 제일 좋지 않을까
+# 전체를 한바퀴 돈다고 생각하고 하나씩 제거해
+# 하나씩 제거하다보니 효율성문제 + 런타임 에러도 16,19,23에 나타나 
+
+from collections import deque
+
 
 def solution(food_times, k):
-    order=0
-    time=0
-    table_length=len(food_times)
-    while time!=k:
-        if  food_times[order%table_length]!=0:
-            food_times[order%table_length]-=1
-            order+=1
-            time+=1
-        else:
-            order+=1
-    return order%table_length+1
+    if sum(food_times)<k:
+        return -1
+
+    q=deque()
+    for i in range(len(food_times)):
+      q.append((food_times[i],i))
+    
+    while k!=0: 
+      min_time=min(q)[0]
+      print(q,min_time)
+      length=len(q)
+      if k-min_time*length<0:
+        break
+      k-=min_time*length
+      for i in range(length):
+        time,index=q.popleft()
+        if time>min_time:
+          time-=min_time
+          q.append((time,index))
 
 
-print(solution([2,2,2],3))
+    while k!=0:
+      time,index=q.popleft()
+      time-=1
+      q.append((time,index))
+      k-=1
+    
+    return q[0][1]+1
+    
+    
 
-#책풀이
-#그리디 문제라고 해서 하나씩 하면되겠지라고 생각했던 게 잘못되었어.
-#그리디의 핵심은 하나씩 다 해보는게 (브루트포스였네..) 아니라 가장 지금 좋아보이는 것을 선택하는 것
-#이 문제에서 가장 좋을 것은 가장 작은 양의 음식들을 제거해나가는 것
+
+food_times=[4,1,1,5]
+k=4
+
+print(solution(food_times,k))
+    
+    
+
+# 책풀이: heap을 이용해서 가장 작은 시간의 음식을 내보내고 그만큼 시간을 줄여가면서
 
 import heapq
-
-def solution2(food_items,k):
-  if sum(food_items)<=k: #K보다 같거나 작을 경우에는 무조건 -1 반환
+def solution(food_times,k):
+  answer=0
+  if sum(food_times)<=k:
     return -1
   q=[]
-  for i in range(len(food_items)):
-    heapq.heappush(q,(food_items[i],i+1)) # 1이상의 값만 넣어두기 위해서
-  
-  sum_value=0
-  previous=0
-  length=len(food_items)
+  for i in range(len(food_times)):
+    heapq.heappush(q,(food_times[i],i+1))
+  n=len(food_times)
+  last_food=0
 
-  while sum_value+((q[0][0]-previous)*length)<=k: #가장 작은 값을 먼저 제거해가는 로직을 위해 하나씩 제거하려면 결국 그만큼의 순환을 돌아야하므로 q[0][0]-previous라는 로직이 들어가
-    now=heapq.heappop(q)[0]
-    sum_value+=(now-previous)*length #제거할 값의 시간을 더해둬
-    length-=1 # 제거했으므로 길이는 줄여
-    previous=now 
-  result=sorted(q,key=lambda x:x[1]) #순서를 번호가 가장작은 순서대로 정리
-  return result[(k-sum_value)%length][1] #남은 음식들 내에서 순서를 찾아
+  while k -(q[0][0]-last_food)*n<=k:
+    curr=heapq.heappop(q)[0]
+    k-=(curr-last_food)*n
+    n-=1
+    last_food=curr
 
-solution2([3,1,2],5)
+  q.sort(key=lambda x:x[1])
+  return q[k%n][1]

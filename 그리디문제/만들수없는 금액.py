@@ -1,30 +1,21 @@
-# 내풀이: 콤비네이션을 사용해서 시간복잡도가 높아 
+#내풀이
+#1. 각 금액을 증가시켜가면서 못만드는 금액을 찾아
+#2. 
 
-import itertools
+from itertools import combinations
 
-N=int(input())
-data=list(map(int,input().split()))
-d=[False]*(sum(data)+1)
-
-for i in range(1,len(data)+1):
-  for x in itertools.combinations(data,i):
-    d[sum(x)]=True
-
-for i in range(1,len(d)):
-  if not d[i]:
-    print(i)
-    break
-
-
-# 책풀이: 훨씬 간단하게 정리될 수 있어 
 n=int(input())
-data=list(map(int,input().split()))  
-data.sort()
+coins=list(map(int,input().split()))
+possible_num=[False]*(sum(coins)+1)
+result=0
+
+for i in range(1,n+1):
+  for combi in list(combinations(coins,i)):
+    possible_num[sum(combi)]=True
 
 target=1
-for x in data:
-  if target<x:
+while True:
+  if possible_num[target]==False:
+    print(target)
     break
-  target+=x
-
-print(target)
+  target+=1

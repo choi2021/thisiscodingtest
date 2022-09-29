@@ -1,21 +1,11 @@
-s=list(map(int,input()))
-result=s[0]
+# 내풀이: 0,1이면 더하기, 2부터는 곱하는게 더 크게 만들 수 있어
 
-for i in range(1,len(s)):
-  result=max(s[i]*result,s[i]+result)
-
+str=input()
+result=0
+for i in str:
+  num=int(i)
+  if result==0 or num<=1:
+    result+=num
+  else:
+    result*=num
 print(result)
-  
-
-#풀이
-
-# data=input()
-# result=int(data[0])
-
-# for i in range(1,len(data)):
-#   if int(data[i])<=1 or result<=1:
-#     result+=int(data[i])
-#   else:
-#     result*=int(data[i])
-
-# print(result)

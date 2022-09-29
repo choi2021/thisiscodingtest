@@ -1,18 +1,29 @@
 s=input()
-zero_group=s.split("1")
-zero_group=" ".join(zero_group).split()
-one_group=s.split("0")
-one_group=" ".join(one_group).split()
+zero_count=0
+one_count=0
 
+current=s[0]
+if current=="1":
+  one_count+=1
+else:
+  zero_count+=1
 
-result=min(len(zero_group),len(one_group))
-print(result)
+for i in range(1,len(s)):
+  if s[i]==current:
+    continue
+  else:
+    if s[i]=="1":
+      one_count+=1
+    else:
+      zero_count+=1
+    current=s[i]
 
-# 풀이
+print(min(zero_count,one_count))
 
+#책풀이:
 data=input()
 count0=0
-count1=0
+count1=1
 
 if data[0]=="1":
   count0+=1
@@ -26,4 +37,4 @@ for i in range(len(data)-1):
     else:
       count1+=1
 
-print(min(count0,count1))
+print(count0,count1)
