@@ -1,56 +1,58 @@
-# # 내풀이
-# # 1. 알맞게 문자열 자르기
-# #   자를때 최소 1개부터 최대 전체 갯수의 반만큼 잘라
-# # 2. 이전값과 값다면 합쳐주기
-# # 3. result값중에서 가장 작은 길이 반환하기
-
-# # 테스트에서 실패했어 
-
-# s=input()
-# result=[]
-
-# for i in range(1,len(s)//2+1):
-#   ord=i;
-#   reformed_s=[]
-#   target=""
-#   for j in range(1,len(s) +1):
-#     if j%ord==0:
-#       target+=s[j-1]
-#       reformed_s.append(target)
-#       target=""
-#     else:
-#       target+=s[j-1]
-
-#   num=1
-#   string=""
-#   prev=reformed_s[0]
-#   for k in range(1,len(reformed_s)):
-#     if prev==reformed_s[k]:
-#       num+=1
-#     else:
-#       string+=str(num)+prev if num>1 else prev
-#       prev=reformed_s[k]
-#       num=1
-#   string+=str(num)+prev if num>1 else prev
-#   result.append(string)
+# 내풀이
+# 1. 전체 자를수 있는 길이는 len//2로 두고 자른 애들끼리 비교해서 stack에 넣어
+# 2. 스택의 마지막 값과 같으면 value를 올려, 다르면 pop()하고 count를 더해서 문자열에 더해주기
 
 
-#책풀이
+from bz2 import compress
+
+
+def solution(s):
+    result=[]
+    if len(s)==1:
+        return 1
+    for split_length in range(1,len(s)//2+1):
+        arr=[s[i:i+split_length] for i in range(0, len(s), split_length) ]
+        stack=[arr[0]]
+        last_str=""
+        count=1
+        for i in range(1,len(arr)):
+            if stack[-1]==arr[i]:
+                count+=1
+            else:
+                string=stack.pop()
+                if count==1:
+                    last_str+=string
+                else: 
+                    last_str+=str(count)+string
+                stack.append(arr[i])
+                count=1
+
+        string=stack.pop()
+        if count==1:
+            last_str+=string
+        else: 
+            last_str+=str(count)+string
+        result.append(last_str)
+        
+    result.sort(key=lambda x:len(x))
+    return len(result[0])
+
+
+#책풀이:
+
 def solutions(s):
   answer=len(s)
-  for step in range(1,len(s)//+1):
+  for step in range(1,len(s)//2+1):
     compressed=""
     prev=s[0:step]
     count=1
-    for j in range(step,len(s),step): #숫자의 간격설정가능
+    for j in range(step,len(s),step):
       if prev==s[j:j+step]:
         count+=1
       else:
-        compressed+=str(count)+prev if count>1 else prev
+        compressed+=str(count)+prev if count>=2 else prev
         prev=s[j:j+step]
         count=1
-    compressed+=str(count)+prev if count>1 else prev
+    compressed+=str(count)+prev if count>=2 else prev
     answer=min(answer,len(compressed))
   return answer
-print(solutions("aabbaccc"))
-

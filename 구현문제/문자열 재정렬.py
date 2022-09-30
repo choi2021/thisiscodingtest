@@ -1,16 +1,15 @@
-s=input()
-sum=0
-result=[]
 
+
+s=input()
+result=[]
+sum=0
 for i in s:
-  if i.isalpha(): #알파벳인지 확인
+  if i.isalpha():
     result.append(i)
   else:
     sum+=int(i)
 
 result.sort()
-
-if sum!=0:
-  result.append(str(sum))
-
-print("".join(result))  
+result.append(sum)
+for i in result:
+  print(i,end="")

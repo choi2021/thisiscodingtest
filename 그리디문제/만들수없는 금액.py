@@ -19,3 +19,18 @@ while True:
     print(target)
     break
   target+=1
+
+
+# 책풀이: 화폐 단위를 기준으로 정렬하고 단위가 작은 동전부터 확인하면서 target을 업데이트한다
+
+n=int(input())
+data=list(map(int,input().split()))
+data.sort()
+
+target=1
+for x in data:
+  if target<x:
+    break
+  target+=x
+
+print(target)
