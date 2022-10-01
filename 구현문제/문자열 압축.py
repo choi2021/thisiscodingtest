@@ -4,6 +4,7 @@
 
 
 from bz2 import compress
+from multiprocessing.connection import answer_challenge
 
 
 def solution(s):
