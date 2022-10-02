@@ -39,14 +39,10 @@
 # 재귀함수는 스택 자료구조를 이용해 가장 마지막 호출한 함수가 먼저 수행하고 앞의 함수가 종료 된다 (브라우저의 call stack과 같이)
 
 # 예시 1번 100번까지 호출하기
-def recursive_function(i):
-  if i==100:
-    return
-  print(i, "번째 재귀 함수에서", i+1,"번째 재귀 함수를 호출합니다.")
-  recursive_function(i+1)
-
-recursive_function(1)
-
+def factorial(n):
+  if n<=1:
+    return 1
+  return n*factorial(n-1)
 #예시 2번 factorial
 def factorial_iterative(n):
   result=1
