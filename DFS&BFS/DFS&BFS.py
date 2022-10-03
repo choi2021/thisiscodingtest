@@ -1,4 +1,20 @@
-#1 인접행렬
+def dfs(graph,v,visited):
+  visited[v]=True
+  print(v, end=" ")
+  for i in graph[v]:
+    if not visited[i]:
+      dfs(graph,i,visited)
 
-INF=999999999999
-graph=[[0,7,5],[7,0,INF],[5,INF,0]]
+from collections import deque
+def bjs(graph,start,visited):
+  queue=deque([start])
+  visited[start]=True
+  while queue:
+    v=queue.popleft()
+    print(v, end=" ")
+    for i in graph[v]:
+      if i not in visited:
+        queue.append(i)
+        visited[i]=True
+
+  
