@@ -1,66 +1,70 @@
-# # 내풀이: DFS/BFS의 전형적인 문제지만, 아직 탐색하는 알고리즘이 부족해..
-# # 1. 각 나라마다 돌면서 상하좌우로 가능한 연합 찾기
-# # 2. 연합가능한 나라끼리 묶어주기
-# # 
+# 내풀이: pypy3로는 풀리지만 그냥하면 80퍼에서 시간초과가 나
+# from collections import deque
+
 # n,l,r=map(int,input().split())
 # graph=[]
 # for i in range(n):
 #   graph.append(list(map(int,input().split())))
 
-# unions=[[False]*n for i in range(n)]
+# dx=[1,0,-1,0]
+# dy=[0,1,0,-1]
 
-# dx=[1,-1,0,0]
-# dy=[0,0,1,-1]
-
-# def dfs(x,y):
-#   for i in range(4):
-#     nx=x+dx[i]
-#     ny=y+dy[i]
-#     if 0<=nx<n and 0<ny<n:
-#       if l<=abs(graph[x][y]-graph[nx][ny])<=r and unions[x][y]==False:    
-#         unions[x][y]=True
-#         dfs(nx,ny)
-#         return True
+# def find_union():
+#   for i in range(n):
+#     for j in range(n):
+#       for k in range(4):
+#         nx=i+dx[k]
+#         ny=j+dy[k]
+#         if 0<=nx<n and 0<=ny<n:
+#           diff=abs(graph[i][j]-graph[nx][ny])
+#           if l<=diff<=r:
+#             return True
 #   return False
+  
 
-# def combine_nations():
-#   nations=[]
+# def bfs(x,y,visited):
+#   q=deque([(x,y)])
+#   visited[x][y]=True
+#   total=graph[x][y]
+#   union=[(x,y)]
+#   while q:
+#     x,y=q.popleft()
+#     for i in range(4):
+#       nx=x+dx[i]
+#       ny=y+dy[i]
+#       if 0<=nx<n and 0<=ny<n:
+#         if l<=abs(graph[x][y]-graph[nx][ny])<=r and visited[nx][ny]==False:
+#           total+=graph[nx][ny]
+#           union.append((nx,ny))
+#           visited[nx][ny]=True
+#           q.append((nx,ny))
+#   for x,y in union:
+#     graph[x][y]=total//len(union)
+
+
+# num=0
+
+# while find_union():
+#   visited=[[False]*n for _ in range(n)]
 #   for i in range(n):
 #     for j in range(n):
-#       if unions[i][j]==True:
-#         nations.append((i,j))
-#   if len(nations)==0:
-#     return False
-#   popularity=0
-#   for x,y in nations:
-#     popularity+=graph[x][y]//len(nations)
-#   for x,y in nations:
-#     graph[x][y]=popularity
-#   return True
+#       if visited[i][j]!=True:
+#         bfs(i,j,visited)
 
-# result=0
-# while possible==True:
-#   for i in range(n):
-#     for j in range(n):
-#       d
-#   if combine_nations()==False:
-#     break
-#   result+=1
-# print(result)
+#   num+=1
+# print(num)
 
-
-# 책풀이: DFS이용해서 탐색, 연합가능한걸 묶는 방식에서 차이를 보여
 from collections import deque
 
 n,l,r=map(int,input().split())
 
 graph=[]
+
 for _ in range(n):
   graph.append(list(map(int,input().split())))
 
-dx=[1,-1,0,0]
-dy=[0,0,1,-1]
-
+dx=[-1,0,1,0]
+dy=[0,1,0,-1]
 result=0
 
 def process(x,y,index):
@@ -100,5 +104,3 @@ while True:
   if index==n*n:
     break
   total_count+=1
-
-print(total_count)
