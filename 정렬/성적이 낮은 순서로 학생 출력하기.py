@@ -1,10 +1,10 @@
-N=int(input())
-result=[]
-for i in range(N):
+n=int(input())
+arr=[]
+for i in range(n):
   name,score=input().split()
-  result.append((name,int(score)))
+  arr.append((score,name))
 
-result=sorted(result,key=lambda x:x[1])
+arr.sort()
 
-for i in range(N):
-  print(result[i][0],end=" ")
+for i in arr:
+  print(i[1],end= " " )
