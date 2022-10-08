@@ -8,3 +8,6 @@ def rotate_a_matrix_by_90_degree(a):
   return result
 
 #원형으로 문제가 나오면 2배하고 일자로 바꿔버리기
+
+#그래프에서 대각선 좌표는 (x,y) (a,b)일때, abs(y-b)==abs(x-a)
+
