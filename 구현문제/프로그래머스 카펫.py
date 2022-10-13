@@ -12,8 +12,7 @@ def solution(brown, yellow):
       if row*2+col*2-4==brown:
         answer=[row,col]
         break    
-    print(answer)
-    return 
+    return answer
 
 brown=10
 yellow=2

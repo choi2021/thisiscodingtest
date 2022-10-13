@@ -1,7 +1,10 @@
 from bisect import bisect_left,bisect_right
 
-n,x=map(int,input().split())
+n=int(input())
 arr=list(map(int,input().split()))
+arr.sort()
+m=int(input())
+target=list(map(int,input().split()))
 
 def count_by_range(arr,target):
   left_index=bisect_left(arr,target)
@@ -9,8 +12,5 @@ def count_by_range(arr,target):
   return right_index-left_index
 
 
-result=count_by_range(arr,x)
-if result==0:
-  print(-1)
-else:
-  print(result)
+for i in target:
+  print(count_by_range(arr,i),end=" ")
