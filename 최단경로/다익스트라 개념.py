@@ -4,7 +4,7 @@
 
 # n,m=map(int,input().split())
 # start=int(input())
-# graph=[[] for i in range(n+1)]
+# graph=[[]for i in range(n+1)]
 # visited=[False]*(n+1)
 # distance=[INF]*(n+1)
 
@@ -12,37 +12,28 @@
 #   a,b,c=map(int,input().split())
 #   graph[a].append((b,c))
 
-# def get_smallest_node():
+# def get_smallest_value():
 #   min_value=INF
 #   index=0
-#   for i in range(1,n+1):
-#     if distance[i]<distance[index] and not visited[i]:
+#   for i in range(len(distance)):
+#     if min_value>distance[i] and not visited[i]:
 #       min_value=distance[i]
 #       index=i
-
 #   return index
 
-# def dijstra(start):
+# def dijkstra(start):
 #   distance[start]=0
 #   visited[start]=True
-#   for j in graph[start]:
+#   for i in graph[start]:
 #     distance[j[0]]=j[1]
 #   for i in range(n-1):
-#     now=get_smallest_node()
+#     now=get_smallest_value()
 #     visited[now]=True
 #     for j in graph[now]:
 #       cost=distance[now]+j[1]
 #       if cost<distance[j[0]]:
 #         distance[j[0]]=cost
 
-# dijstra(start)
-
-# for i in range(1,n+1):
-#   if distance[i]==INF:
-#     print("INF")
-#   else:
-#     print(distance[i])
-  
 
 import heapq
 import sys
@@ -51,31 +42,24 @@ INF=int(1e9)
 
 n,m=map(int,input().split())
 start=int(input())
-graph=[[]for i in range(n+1)]
+graph=[[] for i in range(n+1)]
 distance=[INF]*(n+1)
+
 
 for _ in range(m):
   a,b,c=map(int,input().split())
   graph[a].append((b,c))
 
-def dijstra(start):
+def dijkstra(start):
   q=[]
   heapq.heappush(q,(0,start))
   distance[start]=0
   while q:
     dist,now=heapq.heappop(q)
-    if distance[now]<dist:
+    if dist>distance[now]:
       continue
     for i in graph[now]:
       cost=dist+i[1]
-      if cost <distance[i[0]]:
+      if cost<distance[i[0]]:
         distance[i[0]]=cost
-        heapq.heappush(q,(cost,i[0]))
-
-dijstra(start)
-
-for i in range(1,n+1):
-  if distance[i]==INF:
-    print("INF")
-  else:
-    print(distance[i])
+        heapq.heappush((cost,i[0]))
