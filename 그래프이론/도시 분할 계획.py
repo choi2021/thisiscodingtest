@@ -1,7 +1,16 @@
 import sys
 input=sys.stdin.readline
-
 n,m=map(int,input().split())
+edges=[]
+parent=[0]*(n+1)
+result=[]
+
+for i in range(n+1):
+  parent[i]=i
+
+for i in range(m):
+  a,b,c=map(int,input().split())
+  edges.append((c,a,b))
 
 def find_parent(parent,x):
   if parent[x]!=x:
@@ -16,31 +25,12 @@ def union_parent(parent,a,b):
   else:
     parent[a]=b
 
-edges=[]
-result=0
-parent=[0]*(n+1)
-
-for i in range(1,n+1):
-  parent[i]=i
-for i in range(m):
-  a,b,cost=map(int,input().split())
-  edges.append((cost,a,b))
-
 edges.sort()
 
-last=0
-
-for edge in edges:
-  cost,a,b=edge
+for e in edges:
+  cost,a,b=e
   if find_parent(parent,a)!=find_parent(parent,b):
-    result+=cost
     union_parent(parent,a,b)
-    last=cost
-
-print(result-last)
-    
-
-
-
-
-
+    result.append(cost)
+result.pop()
+print(sum(result))

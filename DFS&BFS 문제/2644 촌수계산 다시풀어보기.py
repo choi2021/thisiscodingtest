@@ -1,17 +1,35 @@
-def dfs(node):
-	for n in graph[node]:
-		if check[n]==0:
-			check[n]=check[node]+1
-			dfs(n)
-
+from collections import deque
 n=int(input())
-graph=[[] for _ in range(n+1)]
-s,e=map(int,input().split())
-for _ in range(int(input())):
-	u,v=map(int,input().split())
-	graph[u].append(v)
-	graph[v].append(u)
+a,b=map(int,input().split())
+m=int(input())
+graph=[[] for i in range(n+1)]
+for _ in range(m):
+	x,y=map(int,input().split())
+	graph[x].append(y)
+	graph[y].append(x)
+INF=int(1e9)
+distance=[INF]*(n+1)
 
-check=[0]*(n+1)
-dfs(s)
-print(check)
+# def bfs(start):
+# 	distance[start]=0
+# 	q=deque([(0,start)])
+# 	while q:
+# 		dist,node=q.popleft()
+# 		for i in graph[node]:
+# 			if distance[i]==INF:
+# 				q.append((dist+1,i))
+# 				distance[i]=dist+1
+# bfs(a)
+# if distance[b]==INF:
+# 	print(-1)
+# else:
+# 	print(distance[b])
+
+# def dfs(node,num):
+# 	distance[node]=num
+# 	for i in graph[node]:
+# 		if distance[i]==INF:
+# 			dfs(i,num+1)
+#
+# dfs(a,0)
+# print(distance)
